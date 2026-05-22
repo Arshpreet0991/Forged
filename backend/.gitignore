@@ -4,3 +4,4 @@ dist/
 logs/
 *.log
 docs/private/
+/src/generated/prisma

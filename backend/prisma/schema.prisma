@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   
+  password  String?
+  googleId  String?  @unique
+  avatar    String?
+  timezone  String   @default("UTC")
+  streak    Int      @default(0)
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mainQuests MainQuest[]
+  days Day[]
+  verificationTokens VerificationToken[]
+}
+
+enum TokenType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+model VerificationToken {
+  id String @id @default(cuid())
+  code String
+  type TokenType
+  isUsed Boolean @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])  
+}
+
+
+model Category {
+  id String @id @default(cuid())
+  categoryName String
+  categoryIcon String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mainQuests MainQuest[]
+  tasks Task[]
+}
+
+model MainQuest {
+  id String @id @default(cuid())
+  title String
+  deadline DateTime
+  isCompleted Boolean @default(false) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  userId String
+  user User @relation(fields:[userId] , references:[id])
+
+  categoryId String
+  category Category @relation (fields:[categoryId], references:[id])
+
+
+  
+}
+
+enum Ranking {
+D
+C
+B
+A
+S
+SS
+SSS
+}
+
+model Day{
+  id String @id @default(cuid())
+  date DateTime
+  completionRate Float @default(0)
+  rank Ranking @default(D)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user User @relation(fields:[userId] , references:[id])
+  tasks Task[]
+  reflection Reflection?
+  @@unique([userId, date]) //This means the combination of userId and date must be unique. Two users can have the same date, but one user cannot have two records for the same date.
+}
+
+enum TaskLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Task {
+  id String @id @default(cuid())
+  task String
+  isCompleted Boolean @default(false)
+  difficulty TaskLevel
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  dayId String
+  day Day @relation(fields:[dayId], references:[id])
+
+  categoryId String
+  category Category @relation (fields:[categoryId], references:[id])
+ 
+}
+
+model Reflection{
+  id String @id @default(cuid())
+  right String?
+  wrong String?
+  improve String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  dayId String
+  day Day @relation(fields:[dayId], references:[id])
+
+}

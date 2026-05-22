@@ -7,6 +7,7 @@ const envSchema = z.object({
     .default('development'),
   PORT: z.string().default('5000').transform(Number),
   DATABASE_URL: z.string().min(1),
+  Direct_URL: z.string().min(1),
   JWT_SECRET: z.string().min(64).max(128),
   RESEND_API_KEY: z.string().min(32).max(64),
   CLOUDINARY_CLOUD_NAME: z.string().min(1),
