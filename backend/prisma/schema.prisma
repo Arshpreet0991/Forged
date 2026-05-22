@@ -125,7 +125,7 @@ model Reflection{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  dayId String
+  dayId String @unique
   day Day @relation(fields:[dayId], references:[id])
 
 }
