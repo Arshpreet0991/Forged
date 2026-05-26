@@ -6,6 +6,11 @@ import prisma from './config/prisma';
 
 app.listen(env.PORT, async () => {
   logger.info(`Server is running on port ${env.PORT}`);
-  await prisma.$connect();
-  logger.info('Connected to the database');
+  try {
+    await prisma.$connect();
+    logger.info('Database connection established successfully');
+  } catch (error) {
+    logger.error('Failed to connect to the database', error);
+    process.exit(1); // Exit the process with an error code
+  }
 });
