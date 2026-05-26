@@ -56,8 +56,7 @@ export const ModelName = {
   Category: 'Category',
   MainQuest: 'MainQuest',
   Day: 'Day',
-  Task: 'Task',
-  Reflection: 'Reflection'
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -137,6 +136,9 @@ export const DayScalarFieldEnum = {
   date: 'date',
   completionRate: 'completionRate',
   rank: 'rank',
+  right: 'right',
+  wrong: 'wrong',
+  improve: 'improve',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
@@ -157,19 +159,6 @@ export const TaskScalarFieldEnum = {
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
-
-
-export const ReflectionScalarFieldEnum = {
-  id: 'id',
-  right: 'right',
-  wrong: 'wrong',
-  improve: 'improve',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  dayId: 'dayId'
-} as const
-
-export type ReflectionScalarFieldEnum = (typeof ReflectionScalarFieldEnum)[keyof typeof ReflectionScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -389,8 +389,7 @@ export const ModelName = {
   Category: 'Category',
   MainQuest: 'MainQuest',
   Day: 'Day',
-  Task: 'Task',
-  Reflection: 'Reflection'
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationToken" | "category" | "mainQuest" | "day" | "task" | "reflection"
+    modelProps: "user" | "verificationToken" | "category" | "mainQuest" | "day" | "task"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -854,80 +853,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Reflection: {
-      payload: Prisma.$ReflectionPayload<ExtArgs>
-      fields: Prisma.ReflectionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ReflectionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ReflectionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        findFirst: {
-          args: Prisma.ReflectionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ReflectionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        findMany: {
-          args: Prisma.ReflectionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>[]
-        }
-        create: {
-          args: Prisma.ReflectionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        createMany: {
-          args: Prisma.ReflectionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ReflectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>[]
-        }
-        delete: {
-          args: Prisma.ReflectionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        update: {
-          args: Prisma.ReflectionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        deleteMany: {
-          args: Prisma.ReflectionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ReflectionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ReflectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>[]
-        }
-        upsert: {
-          args: Prisma.ReflectionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReflectionPayload>
-        }
-        aggregate: {
-          args: Prisma.ReflectionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateReflection>
-        }
-        groupBy: {
-          args: Prisma.ReflectionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReflectionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ReflectionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReflectionCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -1028,6 +953,9 @@ export const DayScalarFieldEnum = {
   date: 'date',
   completionRate: 'completionRate',
   rank: 'rank',
+  right: 'right',
+  wrong: 'wrong',
+  improve: 'improve',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
@@ -1048,19 +976,6 @@ export const TaskScalarFieldEnum = {
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
-
-
-export const ReflectionScalarFieldEnum = {
-  id: 'id',
-  right: 'right',
-  wrong: 'wrong',
-  improve: 'improve',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  dayId: 'dayId'
-} as const
-
-export type ReflectionScalarFieldEnum = (typeof ReflectionScalarFieldEnum)[keyof typeof ReflectionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1313,7 +1228,6 @@ export type GlobalOmitConfig = {
   mainQuest?: Prisma.MainQuestOmit
   day?: Prisma.DayOmit
   task?: Prisma.TaskOmit
-  reflection?: Prisma.ReflectionOmit
 }
 
 /* Types for Logging */

@@ -39,6 +39,9 @@ export type DayMinAggregateOutputType = {
   date: Date | null
   completionRate: number | null
   rank: $Enums.Ranking | null
+  right: string | null
+  wrong: string | null
+  improve: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -49,6 +52,9 @@ export type DayMaxAggregateOutputType = {
   date: Date | null
   completionRate: number | null
   rank: $Enums.Ranking | null
+  right: string | null
+  wrong: string | null
+  improve: string | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -59,6 +65,9 @@ export type DayCountAggregateOutputType = {
   date: number
   completionRate: number
   rank: number
+  right: number
+  wrong: number
+  improve: number
   createdAt: number
   updatedAt: number
   userId: number
@@ -79,6 +88,9 @@ export type DayMinAggregateInputType = {
   date?: true
   completionRate?: true
   rank?: true
+  right?: true
+  wrong?: true
+  improve?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -89,6 +101,9 @@ export type DayMaxAggregateInputType = {
   date?: true
   completionRate?: true
   rank?: true
+  right?: true
+  wrong?: true
+  improve?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -99,6 +114,9 @@ export type DayCountAggregateInputType = {
   date?: true
   completionRate?: true
   rank?: true
+  right?: true
+  wrong?: true
+  improve?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -196,6 +214,9 @@ export type DayGroupByOutputType = {
   date: Date
   completionRate: number
   rank: $Enums.Ranking
+  right: string | null
+  wrong: string | null
+  improve: string | null
   createdAt: Date
   updatedAt: Date
   userId: string
@@ -229,12 +250,14 @@ export type DayWhereInput = {
   date?: Prisma.DateTimeFilter<"Day"> | Date | string
   completionRate?: Prisma.FloatFilter<"Day"> | number
   rank?: Prisma.EnumRankingFilter<"Day"> | $Enums.Ranking
+  right?: Prisma.StringNullableFilter<"Day"> | string | null
+  wrong?: Prisma.StringNullableFilter<"Day"> | string | null
+  improve?: Prisma.StringNullableFilter<"Day"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   userId?: Prisma.StringFilter<"Day"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
-  reflection?: Prisma.XOR<Prisma.ReflectionNullableScalarRelationFilter, Prisma.ReflectionWhereInput> | null
 }
 
 export type DayOrderByWithRelationInput = {
@@ -242,12 +265,14 @@ export type DayOrderByWithRelationInput = {
   date?: Prisma.SortOrder
   completionRate?: Prisma.SortOrder
   rank?: Prisma.SortOrder
+  right?: Prisma.SortOrderInput | Prisma.SortOrder
+  wrong?: Prisma.SortOrderInput | Prisma.SortOrder
+  improve?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
-  reflection?: Prisma.ReflectionOrderByWithRelationInput
 }
 
 export type DayWhereUniqueInput = Prisma.AtLeast<{
@@ -259,12 +284,14 @@ export type DayWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"Day"> | Date | string
   completionRate?: Prisma.FloatFilter<"Day"> | number
   rank?: Prisma.EnumRankingFilter<"Day"> | $Enums.Ranking
+  right?: Prisma.StringNullableFilter<"Day"> | string | null
+  wrong?: Prisma.StringNullableFilter<"Day"> | string | null
+  improve?: Prisma.StringNullableFilter<"Day"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   userId?: Prisma.StringFilter<"Day"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
-  reflection?: Prisma.XOR<Prisma.ReflectionNullableScalarRelationFilter, Prisma.ReflectionWhereInput> | null
 }, "id" | "userId_date">
 
 export type DayOrderByWithAggregationInput = {
@@ -272,6 +299,9 @@ export type DayOrderByWithAggregationInput = {
   date?: Prisma.SortOrder
   completionRate?: Prisma.SortOrder
   rank?: Prisma.SortOrder
+  right?: Prisma.SortOrderInput | Prisma.SortOrder
+  wrong?: Prisma.SortOrderInput | Prisma.SortOrder
+  improve?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -290,6 +320,9 @@ export type DayScalarWhereWithAggregatesInput = {
   date?: Prisma.DateTimeWithAggregatesFilter<"Day"> | Date | string
   completionRate?: Prisma.FloatWithAggregatesFilter<"Day"> | number
   rank?: Prisma.EnumRankingWithAggregatesFilter<"Day"> | $Enums.Ranking
+  right?: Prisma.StringNullableWithAggregatesFilter<"Day"> | string | null
+  wrong?: Prisma.StringNullableWithAggregatesFilter<"Day"> | string | null
+  improve?: Prisma.StringNullableWithAggregatesFilter<"Day"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Day"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Day"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Day"> | string
@@ -300,11 +333,13 @@ export type DayCreateInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDaysInput
   tasks?: Prisma.TaskCreateNestedManyWithoutDayInput
-  reflection?: Prisma.ReflectionCreateNestedOneWithoutDayInput
 }
 
 export type DayUncheckedCreateInput = {
@@ -312,11 +347,13 @@ export type DayUncheckedCreateInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutDayInput
-  reflection?: Prisma.ReflectionUncheckedCreateNestedOneWithoutDayInput
 }
 
 export type DayUpdateInput = {
@@ -324,11 +361,13 @@ export type DayUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDaysNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutDayNestedInput
-  reflection?: Prisma.ReflectionUpdateOneWithoutDayNestedInput
 }
 
 export type DayUncheckedUpdateInput = {
@@ -336,11 +375,13 @@ export type DayUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutDayNestedInput
-  reflection?: Prisma.ReflectionUncheckedUpdateOneWithoutDayNestedInput
 }
 
 export type DayCreateManyInput = {
@@ -348,6 +389,9 @@ export type DayCreateManyInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -358,6 +402,9 @@ export type DayUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -367,6 +414,9 @@ export type DayUncheckedUpdateManyInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -392,6 +442,9 @@ export type DayCountOrderByAggregateInput = {
   date?: Prisma.SortOrder
   completionRate?: Prisma.SortOrder
   rank?: Prisma.SortOrder
+  right?: Prisma.SortOrder
+  wrong?: Prisma.SortOrder
+  improve?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -406,6 +459,9 @@ export type DayMaxOrderByAggregateInput = {
   date?: Prisma.SortOrder
   completionRate?: Prisma.SortOrder
   rank?: Prisma.SortOrder
+  right?: Prisma.SortOrder
+  wrong?: Prisma.SortOrder
+  improve?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -416,6 +472,9 @@ export type DayMinOrderByAggregateInput = {
   date?: Prisma.SortOrder
   completionRate?: Prisma.SortOrder
   rank?: Prisma.SortOrder
+  right?: Prisma.SortOrder
+  wrong?: Prisma.SortOrder
+  improve?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -498,29 +557,17 @@ export type DayUpdateOneRequiredWithoutTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DayUpdateToOneWithWhereWithoutTasksInput, Prisma.DayUpdateWithoutTasksInput>, Prisma.DayUncheckedUpdateWithoutTasksInput>
 }
 
-export type DayCreateNestedOneWithoutReflectionInput = {
-  create?: Prisma.XOR<Prisma.DayCreateWithoutReflectionInput, Prisma.DayUncheckedCreateWithoutReflectionInput>
-  connectOrCreate?: Prisma.DayCreateOrConnectWithoutReflectionInput
-  connect?: Prisma.DayWhereUniqueInput
-}
-
-export type DayUpdateOneRequiredWithoutReflectionNestedInput = {
-  create?: Prisma.XOR<Prisma.DayCreateWithoutReflectionInput, Prisma.DayUncheckedCreateWithoutReflectionInput>
-  connectOrCreate?: Prisma.DayCreateOrConnectWithoutReflectionInput
-  upsert?: Prisma.DayUpsertWithoutReflectionInput
-  connect?: Prisma.DayWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DayUpdateToOneWithWhereWithoutReflectionInput, Prisma.DayUpdateWithoutReflectionInput>, Prisma.DayUncheckedUpdateWithoutReflectionInput>
-}
-
 export type DayCreateWithoutUserInput = {
   id?: string
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskCreateNestedManyWithoutDayInput
-  reflection?: Prisma.ReflectionCreateNestedOneWithoutDayInput
 }
 
 export type DayUncheckedCreateWithoutUserInput = {
@@ -528,10 +575,12 @@ export type DayUncheckedCreateWithoutUserInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutDayInput
-  reflection?: Prisma.ReflectionUncheckedCreateNestedOneWithoutDayInput
 }
 
 export type DayCreateOrConnectWithoutUserInput = {
@@ -568,6 +617,9 @@ export type DayScalarWhereInput = {
   date?: Prisma.DateTimeFilter<"Day"> | Date | string
   completionRate?: Prisma.FloatFilter<"Day"> | number
   rank?: Prisma.EnumRankingFilter<"Day"> | $Enums.Ranking
+  right?: Prisma.StringNullableFilter<"Day"> | string | null
+  wrong?: Prisma.StringNullableFilter<"Day"> | string | null
+  improve?: Prisma.StringNullableFilter<"Day"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Day"> | Date | string
   userId?: Prisma.StringFilter<"Day"> | string
@@ -578,10 +630,12 @@ export type DayCreateWithoutTasksInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDaysInput
-  reflection?: Prisma.ReflectionCreateNestedOneWithoutDayInput
 }
 
 export type DayUncheckedCreateWithoutTasksInput = {
@@ -589,10 +643,12 @@ export type DayUncheckedCreateWithoutTasksInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: string
-  reflection?: Prisma.ReflectionUncheckedCreateNestedOneWithoutDayInput
 }
 
 export type DayCreateOrConnectWithoutTasksInput = {
@@ -616,10 +672,12 @@ export type DayUpdateWithoutTasksInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDaysNestedInput
-  reflection?: Prisma.ReflectionUpdateOneWithoutDayNestedInput
 }
 
 export type DayUncheckedUpdateWithoutTasksInput = {
@@ -627,70 +685,12 @@ export type DayUncheckedUpdateWithoutTasksInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  reflection?: Prisma.ReflectionUncheckedUpdateOneWithoutDayNestedInput
-}
-
-export type DayCreateWithoutReflectionInput = {
-  id?: string
-  date: Date | string
-  completionRate?: number
-  rank?: $Enums.Ranking
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutDaysInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutDayInput
-}
-
-export type DayUncheckedCreateWithoutReflectionInput = {
-  id?: string
-  date: Date | string
-  completionRate?: number
-  rank?: $Enums.Ranking
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  userId: string
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutDayInput
-}
-
-export type DayCreateOrConnectWithoutReflectionInput = {
-  where: Prisma.DayWhereUniqueInput
-  create: Prisma.XOR<Prisma.DayCreateWithoutReflectionInput, Prisma.DayUncheckedCreateWithoutReflectionInput>
-}
-
-export type DayUpsertWithoutReflectionInput = {
-  update: Prisma.XOR<Prisma.DayUpdateWithoutReflectionInput, Prisma.DayUncheckedUpdateWithoutReflectionInput>
-  create: Prisma.XOR<Prisma.DayCreateWithoutReflectionInput, Prisma.DayUncheckedCreateWithoutReflectionInput>
-  where?: Prisma.DayWhereInput
-}
-
-export type DayUpdateToOneWithWhereWithoutReflectionInput = {
-  where?: Prisma.DayWhereInput
-  data: Prisma.XOR<Prisma.DayUpdateWithoutReflectionInput, Prisma.DayUncheckedUpdateWithoutReflectionInput>
-}
-
-export type DayUpdateWithoutReflectionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutDaysNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutDayNestedInput
-}
-
-export type DayUncheckedUpdateWithoutReflectionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutDayNestedInput
 }
 
 export type DayCreateManyUserInput = {
@@ -698,6 +698,9 @@ export type DayCreateManyUserInput = {
   date: Date | string
   completionRate?: number
   rank?: $Enums.Ranking
+  right?: string | null
+  wrong?: string | null
+  improve?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -707,10 +710,12 @@ export type DayUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUpdateManyWithoutDayNestedInput
-  reflection?: Prisma.ReflectionUpdateOneWithoutDayNestedInput
 }
 
 export type DayUncheckedUpdateWithoutUserInput = {
@@ -718,10 +723,12 @@ export type DayUncheckedUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutDayNestedInput
-  reflection?: Prisma.ReflectionUncheckedUpdateOneWithoutDayNestedInput
 }
 
 export type DayUncheckedUpdateManyWithoutUserInput = {
@@ -729,6 +736,9 @@ export type DayUncheckedUpdateManyWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   completionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rank?: Prisma.EnumRankingFieldUpdateOperationsInput | $Enums.Ranking
+  right?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  wrong?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improve?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -769,12 +779,14 @@ export type DaySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   date?: boolean
   completionRate?: boolean
   rank?: boolean
+  right?: boolean
+  wrong?: boolean
+  improve?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Day$tasksArgs<ExtArgs>
-  reflection?: boolean | Prisma.Day$reflectionArgs<ExtArgs>
   _count?: boolean | Prisma.DayCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["day"]>
 
@@ -783,6 +795,9 @@ export type DaySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   date?: boolean
   completionRate?: boolean
   rank?: boolean
+  right?: boolean
+  wrong?: boolean
+  improve?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -794,6 +809,9 @@ export type DaySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   date?: boolean
   completionRate?: boolean
   rank?: boolean
+  right?: boolean
+  wrong?: boolean
+  improve?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -805,16 +823,18 @@ export type DaySelectScalar = {
   date?: boolean
   completionRate?: boolean
   rank?: boolean
+  right?: boolean
+  wrong?: boolean
+  improve?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type DayOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "completionRate" | "rank" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["day"]>
+export type DayOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "completionRate" | "rank" | "right" | "wrong" | "improve" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["day"]>
 export type DayInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Day$tasksArgs<ExtArgs>
-  reflection?: boolean | Prisma.Day$reflectionArgs<ExtArgs>
   _count?: boolean | Prisma.DayCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DayIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -829,13 +849,15 @@ export type $DayPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     tasks: Prisma.$TaskPayload<ExtArgs>[]
-    reflection: Prisma.$ReflectionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     date: Date
     completionRate: number
     rank: $Enums.Ranking
+    right: string | null
+    wrong: string | null
+    improve: string | null
     createdAt: Date
     updatedAt: Date
     userId: string
@@ -1235,7 +1257,6 @@ export interface Prisma__DayClient<T, Null = never, ExtArgs extends runtime.Type
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tasks<T extends Prisma.Day$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Day$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  reflection<T extends Prisma.Day$reflectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Day$reflectionArgs<ExtArgs>>): Prisma.Prisma__ReflectionClient<runtime.Types.Result.GetResult<Prisma.$ReflectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1269,6 +1290,9 @@ export interface DayFieldRefs {
   readonly date: Prisma.FieldRef<"Day", 'DateTime'>
   readonly completionRate: Prisma.FieldRef<"Day", 'Float'>
   readonly rank: Prisma.FieldRef<"Day", 'Ranking'>
+  readonly right: Prisma.FieldRef<"Day", 'String'>
+  readonly wrong: Prisma.FieldRef<"Day", 'String'>
+  readonly improve: Prisma.FieldRef<"Day", 'String'>
   readonly createdAt: Prisma.FieldRef<"Day", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Day", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Day", 'String'>
@@ -1694,25 +1718,6 @@ export type Day$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
-}
-
-/**
- * Day.reflection
- */
-export type Day$reflectionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Reflection
-   */
-  select?: Prisma.ReflectionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Reflection
-   */
-  omit?: Prisma.ReflectionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ReflectionInclude<ExtArgs> | null
-  where?: Prisma.ReflectionWhereInput
 }
 
 /**

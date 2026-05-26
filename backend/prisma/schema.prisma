@@ -65,8 +65,7 @@ model MainQuest {
 
   categoryId String
   category Category @relation (fields:[categoryId], references:[id])
-
-
+   @@index([userId])
   
 }
 
@@ -85,13 +84,16 @@ model Day{
   date DateTime
   completionRate Float @default(0)
   rank Ranking @default(D)
+  right String?
+  wrong String?
+  improve String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   userId String
   user User @relation(fields:[userId] , references:[id])
   tasks Task[]
-  reflection Reflection?
+  
   @@unique([userId, date]) //This means the combination of userId and date must be unique. Two users can have the same date, but one user cannot have two records for the same date.
 }
 
@@ -114,19 +116,6 @@ model Task {
 
   categoryId String
   category Category @relation (fields:[categoryId], references:[id])
+  @@index([dayId])
  
-}
-
-model Reflection{
-  id String @id @default(cuid())
-  right String?
-  wrong String?
-  improve String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  dayId String @unique
-  day Day @relation(fields:[dayId], references:[id])
-
 }

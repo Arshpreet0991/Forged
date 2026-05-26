@@ -47,8 +47,3 @@ export type Day = Prisma.DayModel
  * 
  */
 export type Task = Prisma.TaskModel
-/**
- * Model Reflection
- * 
- */
-export type Reflection = Prisma.ReflectionModel
