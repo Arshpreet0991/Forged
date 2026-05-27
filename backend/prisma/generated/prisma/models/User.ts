@@ -44,6 +44,7 @@ export type UserMinAggregateOutputType = {
   timezone: string | null
   streak: number | null
   isVerified: boolean | null
+  refreshToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,6 +59,7 @@ export type UserMaxAggregateOutputType = {
   timezone: string | null
   streak: number | null
   isVerified: boolean | null
+  refreshToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,6 +74,7 @@ export type UserCountAggregateOutputType = {
   timezone: number
   streak: number
   isVerified: number
+  refreshToken: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +99,7 @@ export type UserMinAggregateInputType = {
   timezone?: true
   streak?: true
   isVerified?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +114,7 @@ export type UserMaxAggregateInputType = {
   timezone?: true
   streak?: true
   isVerified?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +129,7 @@ export type UserCountAggregateInputType = {
   timezone?: true
   streak?: true
   isVerified?: true
+  refreshToken?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,6 +231,7 @@ export type UserGroupByOutputType = {
   timezone: string
   streak: number
   isVerified: boolean
+  refreshToken: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -262,6 +269,7 @@ export type UserWhereInput = {
   timezone?: Prisma.StringFilter<"User"> | string
   streak?: Prisma.IntFilter<"User"> | number
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   mainQuests?: Prisma.MainQuestListRelationFilter
@@ -279,6 +287,7 @@ export type UserOrderByWithRelationInput = {
   timezone?: Prisma.SortOrder
   streak?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   mainQuests?: Prisma.MainQuestOrderByRelationAggregateInput
@@ -299,6 +308,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   timezone?: Prisma.StringFilter<"User"> | string
   streak?: Prisma.IntFilter<"User"> | number
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   mainQuests?: Prisma.MainQuestListRelationFilter
@@ -316,6 +326,7 @@ export type UserOrderByWithAggregationInput = {
   timezone?: Prisma.SortOrder
   streak?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -338,6 +349,7 @@ export type UserScalarWhereWithAggregatesInput = {
   timezone?: Prisma.StringWithAggregatesFilter<"User"> | string
   streak?: Prisma.IntWithAggregatesFilter<"User"> | number
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -352,6 +364,7 @@ export type UserCreateInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestCreateNestedManyWithoutUserInput
@@ -369,6 +382,7 @@ export type UserUncheckedCreateInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestUncheckedCreateNestedManyWithoutUserInput
@@ -386,6 +400,7 @@ export type UserUpdateInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUpdateManyWithoutUserNestedInput
@@ -403,6 +418,7 @@ export type UserUncheckedUpdateInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUncheckedUpdateManyWithoutUserNestedInput
@@ -420,6 +436,7 @@ export type UserCreateManyInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -434,6 +451,7 @@ export type UserUpdateManyMutationInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -448,6 +466,7 @@ export type UserUncheckedUpdateManyInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -462,6 +481,7 @@ export type UserCountOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   streak?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -480,6 +500,7 @@ export type UserMaxOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   streak?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -494,6 +515,7 @@ export type UserMinOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   streak?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -583,6 +605,7 @@ export type UserCreateWithoutVerificationTokensInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestCreateNestedManyWithoutUserInput
@@ -599,6 +622,7 @@ export type UserUncheckedCreateWithoutVerificationTokensInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestUncheckedCreateNestedManyWithoutUserInput
@@ -631,6 +655,7 @@ export type UserUpdateWithoutVerificationTokensInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUpdateManyWithoutUserNestedInput
@@ -647,6 +672,7 @@ export type UserUncheckedUpdateWithoutVerificationTokensInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUncheckedUpdateManyWithoutUserNestedInput
@@ -663,6 +689,7 @@ export type UserCreateWithoutMainQuestsInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   days?: Prisma.DayCreateNestedManyWithoutUserInput
@@ -679,6 +706,7 @@ export type UserUncheckedCreateWithoutMainQuestsInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   days?: Prisma.DayUncheckedCreateNestedManyWithoutUserInput
@@ -711,6 +739,7 @@ export type UserUpdateWithoutMainQuestsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   days?: Prisma.DayUpdateManyWithoutUserNestedInput
@@ -727,6 +756,7 @@ export type UserUncheckedUpdateWithoutMainQuestsInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   days?: Prisma.DayUncheckedUpdateManyWithoutUserNestedInput
@@ -743,6 +773,7 @@ export type UserCreateWithoutDaysInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestCreateNestedManyWithoutUserInput
@@ -759,6 +790,7 @@ export type UserUncheckedCreateWithoutDaysInput = {
   timezone?: string
   streak?: number
   isVerified?: boolean
+  refreshToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   mainQuests?: Prisma.MainQuestUncheckedCreateNestedManyWithoutUserInput
@@ -791,6 +823,7 @@ export type UserUpdateWithoutDaysInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUpdateManyWithoutUserNestedInput
@@ -807,6 +840,7 @@ export type UserUncheckedUpdateWithoutDaysInput = {
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   streak?: Prisma.IntFieldUpdateOperationsInput | number
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mainQuests?: Prisma.MainQuestUncheckedUpdateManyWithoutUserNestedInput
@@ -872,6 +906,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   timezone?: boolean
   streak?: boolean
   isVerified?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   mainQuests?: boolean | Prisma.User$mainQuestsArgs<ExtArgs>
@@ -890,6 +925,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   streak?: boolean
   isVerified?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -904,6 +940,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   streak?: boolean
   isVerified?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -918,11 +955,12 @@ export type UserSelectScalar = {
   timezone?: boolean
   streak?: boolean
   isVerified?: boolean
+  refreshToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "password" | "googleId" | "avatar" | "timezone" | "streak" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "password" | "googleId" | "avatar" | "timezone" | "streak" | "isVerified" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   mainQuests?: boolean | Prisma.User$mainQuestsArgs<ExtArgs>
   days?: boolean | Prisma.User$daysArgs<ExtArgs>
@@ -949,6 +987,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     timezone: string
     streak: number
     isVerified: boolean
+    refreshToken: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1386,6 +1425,7 @@ export interface UserFieldRefs {
   readonly timezone: Prisma.FieldRef<"User", 'String'>
   readonly streak: Prisma.FieldRef<"User", 'Int'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly refreshToken: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

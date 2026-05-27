@@ -85,6 +85,7 @@ export const UserScalarFieldEnum = {
   timezone: 'timezone',
   streak: 'streak',
   isVerified: 'isVerified',
+  refreshToken: 'refreshToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
