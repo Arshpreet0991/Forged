@@ -17,6 +17,11 @@ const registerUser = async (data: RegisterRequest) => {
     username,
     timezone,
   }); // Create the user in the database
+
+  const verificationCode = Math.floor(
+    100000 + Math.random() * 900000,
+  ).toString(); // Generate a 6-digit verification code
+
   return newUser;
 };
 
