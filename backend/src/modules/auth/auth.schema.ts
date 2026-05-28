@@ -9,6 +9,7 @@ export const registerSchema = z.object({
     .min(6)
     .max(100)
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/), // At least one lowercase letter, one uppercase letter, and one number.
+  timezone: z.string().min(1).max(50),
 });
 
 // Define a schema for user login using Zod
@@ -39,9 +40,3 @@ export const resetPasswordSchema = z.object({
     .max(100)
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/), // At least one lowercase letter, one uppercase letter, and one number.
 });
-
-export type RegisterRequest = z.infer<typeof registerSchema>; // Create a TypeScript type based on the Zod schema for registration
-export type LoginRequest = z.infer<typeof loginSchema>; //  Create a TypeScript type based on the Zod schema for login
-export type VerifyEmailRequest = z.infer<typeof verifyEmailSchema>; // Create a TypeScript type based on the Zod schema for email verification
-export type ForgotPasswordRequest = z.infer<typeof forgotPasswordSchema>; // Create a TypeScript type based on the Zod schema for forgot password
-export type ResetPasswordRequest = z.infer<typeof resetPasswordSchema>; // Create a TypeScript type based on the Zod schema for reset password

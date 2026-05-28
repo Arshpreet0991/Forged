@@ -4,6 +4,7 @@ interface RegisterRequest {
   email: string;
   password: string;
   username: string;
+  timezone: string;
 }
 
 interface LoginRequest {

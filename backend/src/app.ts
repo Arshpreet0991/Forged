@@ -16,4 +16,15 @@ app.use(
   }),
 );
 
+// health check route
+app.get('/api/v1/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
+// Routes imports
+import authRoutes from './modules/auth/auth.route';
+
+// Rotutes
+app.use('/api/v1/auth', authRoutes);
+
 export default app;

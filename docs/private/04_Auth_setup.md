@@ -34,6 +34,16 @@ interface RegisterResponse {
 - Instead, we will create zod schema, and export the type using `z.infer`.
 - So we only create, response contract, as request contract is covered by zod.
 
+### Creating Auth repository
+
+- auth repository only contains the db connections.
+- so our service layer will send data to repository layer, to make queries to database.
+- we will create some functions here to perform db operations.
+- repo layer functions are named based on the operation that they do, and does not show what is the business logic, so for example:
+  - the funtion to register user, should be called createUser and not register user.
+  - login user should be find userbyEmail.
+- this is so that make the repo layer generic to call for whatever CRUD op we need to do.
+
 ### Creating Tokens using JWT
 
 - We will be creating 2 types of tokens here. Both the tokens are generated the same way by using `jwt.sign` method. The only difference is their expiry time.
