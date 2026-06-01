@@ -2,6 +2,7 @@ import {
   ForgotPasswordRequest,
   LoginRequest,
   RegisterRequest,
+  ResetPasswordRequest,
   VerifyEmailRequest,
 } from './auth.contracts';
 import bcryptjs from 'bcryptjs';
@@ -176,4 +177,41 @@ const forgotPassword = async (data: ForgotPasswordRequest) => {
 
   await sendVerificationEmail(email, verificationCode);
 };
-export { registerUser, loginUser, verifyUser, forgotPassword };
+
+const resetPassword = async (data: ResetPasswordRequest) => {
+  // receive data from controller
+  const { email, verificationCode, newPassword } = data;
+
+  // find user by email
+  const user = await authRepository.findUserByEmail(email);
+
+  if (!user) throw new ApiError(401, 'user not found');
+
+  // search token table with a user id
+  const userToken = await authRepository.getVerificationToken(
+    user.id,
+    verificationCode,
+  );
+
+  // checks for token validity
+  if (!userToken) throw new ApiError(401, 'Verification code not found');
+
+  if (userToken.expiresAt < new Date())
+    throw new ApiError(401, 'Verification code has expired');
+
+  if (userToken.isUsed)
+    throw new ApiError(401, 'Verification code has already been used');
+
+  if (userToken.type !== 'PASSWORD_RESET')
+    throw new ApiError(401, 'Invalid token type');
+
+  // update token status to isUsed
+  await authRepository.updateVerificationToken(user.id, verificationCode);
+
+  // update the user's password with new password
+
+  const hashedPassword = await bcryptjs.hash(newPassword, 10);
+  await authRepository.updateUserPassword(user.id, hashedPassword);
+};
+
+export { registerUser, loginUser, verifyUser, forgotPassword, resetPassword };

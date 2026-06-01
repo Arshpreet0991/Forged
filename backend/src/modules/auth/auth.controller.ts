@@ -3,6 +3,7 @@ import {
   forgotPasswordSchema,
   loginSchema,
   registerSchema,
+  resetPasswordSchema,
   verifyEmailSchema,
 } from './auth.schema';
 import * as authService from './auth.service';
@@ -63,4 +64,13 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   return sendResponse(res, 200, 'Password Reset request received');
 });
-export { registerUser, loginUser, verifyUser, forgotPassword };
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const body = resetPasswordSchema.parse(req.body);
+
+  await authService.resetPassword(body);
+
+  return sendResponse(res, 200, 'Password Reset Successfully');
+});
+
+export { registerUser, loginUser, verifyUser, forgotPassword, resetPassword };
