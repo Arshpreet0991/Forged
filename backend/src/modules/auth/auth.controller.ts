@@ -1,5 +1,5 @@
 import asyncHandler from '../../shared/utils/asyncHandler';
-import { registerSchema } from './auth.schema';
+import { loginSchema, registerSchema } from './auth.schema';
 import * as authService from './auth.service';
 import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
@@ -17,4 +17,21 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+  const body = loginSchema.parse(req.body);
+
+  const { user, accessToken, refreshToken } = await authService.loginUser(body);
+
+  sendResponse(res, 200, 'User logged in successfully', {
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    user: {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+    },
+  });
+});
+
+export { registerUser, loginUser };

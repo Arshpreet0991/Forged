@@ -24,7 +24,7 @@ app.get('/api/v1/health', (req, res) => {
 // Routes imports
 import authRoutes from './modules/auth/auth.route';
 
-// Rotutes
+// Routes
 app.use('/api/v1/auth', authRoutes);
 
 export default app;

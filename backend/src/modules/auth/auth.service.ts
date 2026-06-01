@@ -1,8 +1,12 @@
-import { RegisterRequest } from './auth.contracts';
+import { LoginRequest, RegisterRequest } from './auth.contracts';
 import bcryptjs from 'bcryptjs';
 import ApiError from '../../shared/errors/ApiError';
 import * as authRepository from './auth.repository';
 import { sendVerificationEmail } from '../../shared/providers/emailProvider';
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from '../../shared/utils/generateJWT';
 
 const registerUser = async (data: RegisterRequest) => {
   const { email, password, username, timezone } = data; // Destructure the registration data
@@ -80,4 +84,30 @@ const registerUser = async (data: RegisterRequest) => {
   }
 };
 
-export { registerUser };
+const loginUser = async (data: LoginRequest) => {
+  const { email, password } = data;
+
+  const user = await authRepository.findUserByEmail(email);
+
+  if (!user) throw new ApiError(404, 'User not registered');
+
+  if (!user.isVerified)
+    throw new ApiError(
+      401,
+      'Account not verified, check your email for verification code',
+    );
+
+  if (!user.password) throw new ApiError(401, 'Please login with Google'); // because if password doesnt exist, then user must have logged in via google
+
+  const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+
+  if (!isPasswordCorrect) throw new ApiError(401, 'Incorrect Password');
+
+  const accessToken = generateAccessToken(user.id);
+  const refreshToken = generateRefreshToken(user.id);
+
+  await authRepository.saveRefreshToken(user.id, refreshToken);
+
+  return { user, accessToken, refreshToken };
+};
+export { registerUser, loginUser };
