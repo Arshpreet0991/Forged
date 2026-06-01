@@ -1,5 +1,5 @@
 import asyncHandler from '../../shared/utils/asyncHandler';
-import { loginSchema, registerSchema } from './auth.schema';
+import { loginSchema, registerSchema, verifyEmailSchema } from './auth.schema';
 import * as authService from './auth.service';
 import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
@@ -34,4 +34,20 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
-export { registerUser, loginUser };
+const verifyUser = asyncHandler(async (req, res) => {
+  const body = verifyEmailSchema.parse(req.body);
+  const { user, accessToken, refreshToken } =
+    await authService.verifyUser(body);
+
+  return sendResponse(res, 200, 'user verified', {
+    accessToken,
+    refreshToken,
+    user: {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+    },
+  });
+});
+export { registerUser, loginUser, verifyUser };

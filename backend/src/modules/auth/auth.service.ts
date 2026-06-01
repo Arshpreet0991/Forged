@@ -1,4 +1,8 @@
-import { LoginRequest, RegisterRequest } from './auth.contracts';
+import {
+  LoginRequest,
+  RegisterRequest,
+  VerifyEmailRequest,
+} from './auth.contracts';
 import bcryptjs from 'bcryptjs';
 import ApiError from '../../shared/errors/ApiError';
 import * as authRepository from './auth.repository';
@@ -110,4 +114,41 @@ const loginUser = async (data: LoginRequest) => {
 
   return { user, accessToken, refreshToken };
 };
-export { registerUser, loginUser };
+
+const verifyUser = async (data: VerifyEmailRequest) => {
+  // receive data from controller
+  const { email, verificationCode } = data;
+
+  // find user by email
+  const user = await authRepository.findUserByEmail(email);
+
+  if (!user) throw new ApiError(401, 'user not found / registered');
+
+  // search token table with a user id
+  const userToken = await authRepository.getVerificationToken(
+    user.id,
+    verificationCode,
+  );
+
+  // checks for token validity
+  if (!userToken) throw new ApiError(401, 'Verification code not found');
+
+  if (userToken.expiresAt < new Date())
+    throw new ApiError(401, 'Verification code has expired');
+
+  if (userToken.isUsed)
+    throw new ApiError(401, 'Verification code has already been used');
+
+  // update token status to isUsed
+  await authRepository.updateVerificationToken(user.id, verificationCode);
+
+  // update the user's verified status to true
+  await authRepository.updateUserVerifiedStatus(user.id);
+
+  // generate access token and refresh token
+  const accessToken = generateAccessToken(user.id);
+  const refreshToken = generateRefreshToken(user.id);
+
+  return { user, accessToken, refreshToken };
+};
+export { registerUser, loginUser, verifyUser };
