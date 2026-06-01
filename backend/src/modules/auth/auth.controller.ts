@@ -1,5 +1,10 @@
 import asyncHandler from '../../shared/utils/asyncHandler';
-import { loginSchema, registerSchema, verifyEmailSchema } from './auth.schema';
+import {
+  forgotPasswordSchema,
+  loginSchema,
+  registerSchema,
+  verifyEmailSchema,
+} from './auth.schema';
 import * as authService from './auth.service';
 import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
@@ -50,4 +55,12 @@ const verifyUser = asyncHandler(async (req, res) => {
     },
   });
 });
-export { registerUser, loginUser, verifyUser };
+
+const forgotPassword = asyncHandler(async (req, res) => {
+  const body = forgotPasswordSchema.parse(req.body);
+
+  await authService.forgotPassword(body); // send the whole body object
+
+  return sendResponse(res, 200, 'Password Reset request received');
+});
+export { registerUser, loginUser, verifyUser, forgotPassword };

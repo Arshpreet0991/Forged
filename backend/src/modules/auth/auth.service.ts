@@ -1,4 +1,5 @@
 import {
+  ForgotPasswordRequest,
   LoginRequest,
   RegisterRequest,
   VerifyEmailRequest,
@@ -151,4 +152,28 @@ const verifyUser = async (data: VerifyEmailRequest) => {
 
   return { user, accessToken, refreshToken };
 };
-export { registerUser, loginUser, verifyUser };
+
+const forgotPassword = async (data: ForgotPasswordRequest) => {
+  // receive data from controller
+  const { email } = data;
+
+  // find user by email
+  const user = await authRepository.findUserByEmail(email);
+
+  if (!user) throw new ApiError(401, 'user not found');
+
+  // Generate a verification code for user verification
+  const verificationCode = Math.floor(
+    100000 + Math.random() * 900000,
+  ).toString();
+
+  await authRepository.createVerificationToken(
+    user.id,
+    verificationCode,
+    'PASSWORD_RESET',
+    new Date(Date.now() + 15 * 60 * 1000), // 15 min expiry on password reset code
+  );
+
+  await sendVerificationEmail(email, verificationCode);
+};
+export { registerUser, loginUser, verifyUser, forgotPassword };
