@@ -214,4 +214,15 @@ const resetPassword = async (data: ResetPasswordRequest) => {
   await authRepository.updateUserPassword(user.id, hashedPassword);
 };
 
-export { registerUser, loginUser, verifyUser, forgotPassword, resetPassword };
+const logoutUser = async (userId: string) => {
+  await authRepository.deleteRefreshToken(userId);
+};
+
+export {
+  registerUser,
+  loginUser,
+  verifyUser,
+  forgotPassword,
+  resetPassword,
+  logoutUser,
+};

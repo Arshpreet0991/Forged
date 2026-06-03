@@ -35,7 +35,6 @@ interface RegisterResponse {
 
 interface LoginResponse {
   accessToken: string;
-  refreshToken: string;
   user: {
     id: string;
     email: string;
@@ -46,7 +45,6 @@ interface LoginResponse {
 
 interface VerifyEmailResponse {
   accessToken: string;
-  refreshToken: string;
   user: {
     id: string;
     email: string;

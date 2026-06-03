@@ -9,6 +9,7 @@ import {
 import * as authService from './auth.service';
 import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
+import { env } from '../../config/env';
 
 const registerUser = asyncHandler(async (req, res) => {
   const body = registerSchema.parse(req.body); // Validate the request body against the Zod schema
@@ -28,9 +29,16 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const { user, accessToken, refreshToken } = await authService.loginUser(body);
 
+  // send refresh token over secure cookies - by adding these options, front end cant modify these cookies, only backend can do it.
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: env.NODE_ENV === 'production',
+    sameSite: 'lax', // Todo: change during deployment
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+  });
+
   sendResponse(res, 200, 'User logged in successfully', {
     accessToken: accessToken,
-    refreshToken: refreshToken,
     user: {
       id: user.id,
       email: user.email,
@@ -45,9 +53,16 @@ const verifyUser = asyncHandler(async (req, res) => {
   const { user, accessToken, refreshToken } =
     await authService.verifyUser(body);
 
+  // send refresh token over secure cookies - by adding these options, front end cant modify these cookies, only backend can do it.
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: env.NODE_ENV === 'production',
+    sameSite: 'lax', // Todo: change during deployment
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+  });
+
   return sendResponse(res, 200, 'user verified', {
     accessToken,
-    refreshToken,
     user: {
       id: user.id,
       email: user.email,
@@ -55,7 +70,7 @@ const verifyUser = asyncHandler(async (req, res) => {
       avatar: user.avatar,
     },
   });
-});
+};);
 
 const forgotPassword = asyncHandler(async (req, res) => {
   const body = forgotPasswordSchema.parse(req.body);
@@ -73,4 +88,17 @@ const resetPassword = asyncHandler(async (req, res) => {
   return sendResponse(res, 200, 'Password Reset Successfully');
 });
 
-export { registerUser, loginUser, verifyUser, forgotPassword, resetPassword };
+const logout = asyncHandler(async (req, res) => {
+  const userId = req.user?.id; // will come from auth middleware
+  await authService.logoutUser(userId);
+  sendResponse(res, 200, 'Logged out successfully');
+});
+
+export {
+  registerUser,
+  loginUser,
+  verifyUser,
+  forgotPassword,
+  resetPassword,
+  logout,
+};
