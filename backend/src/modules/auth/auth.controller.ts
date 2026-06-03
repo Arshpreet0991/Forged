@@ -70,7 +70,7 @@ const verifyUser = asyncHandler(async (req, res) => {
       avatar: user.avatar,
     },
   });
-};);
+});
 
 const forgotPassword = asyncHandler(async (req, res) => {
   const body = forgotPasswordSchema.parse(req.body);
