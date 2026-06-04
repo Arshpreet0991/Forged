@@ -22,6 +22,6 @@ router.route('/reset-password').post(resetPassword);
 
 // protected routes
 router.route('/logout').post(checkLogin, logout);
-router.route('refresh-token').post(refreshAccessToken);
+router.route('/refresh-token').post(refreshAccessToken);
 
 export default router;
