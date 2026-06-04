@@ -11,6 +11,12 @@ import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
 import { env } from '../../config/env';
 
+const options = {
+  httpOnly: true,
+  secure: true,
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+};
+
 const registerUser = asyncHandler(async (req, res) => {
   const body = registerSchema.parse(req.body); // Validate the request body against the Zod schema
 
@@ -30,12 +36,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const { user, accessToken, refreshToken } = await authService.loginUser(body);
 
   // send refresh token over secure cookies - by adding these options, front end cant modify these cookies, only backend can do it.
-  res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax', // Todo: change during deployment
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
-  });
+  res.cookie('refreshToken', refreshToken, options);
 
   sendResponse(res, 200, 'User logged in successfully', {
     accessToken: accessToken,
@@ -54,12 +55,8 @@ const verifyUser = asyncHandler(async (req, res) => {
     await authService.verifyUser(body);
 
   // send refresh token over secure cookies - by adding these options, front end cant modify these cookies, only backend can do it.
-  res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax', // Todo: change during deployment
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
-  });
+
+  res.cookie('refreshToken', refreshToken, options);
 
   return sendResponse(res, 200, 'user verified', {
     accessToken,
@@ -89,8 +86,9 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 const logout = asyncHandler(async (req, res) => {
-  const userId = req.user?.id; // will come from auth middleware
-  await authService.logoutUser(userId);
+  const userId = req.userId; // will come from auth middleware
+  await authService.logoutUser(userId!);
+  res.clearCookie('accessToken', options);
   sendResponse(res, 200, 'Logged out successfully');
 });
 

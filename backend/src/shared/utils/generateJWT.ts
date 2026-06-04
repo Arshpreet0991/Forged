@@ -1,5 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { env } from '../../config/env';
+import TokenPayload from '../types/jwtToken.types';
 
 function generateAccessToken(userId: string): string {
   return jwt.sign({ userId }, env.JWT_ACCESS_TOKEN_SECRET, {
