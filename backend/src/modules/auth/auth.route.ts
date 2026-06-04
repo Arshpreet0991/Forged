@@ -6,6 +6,7 @@ import {
   forgotPassword,
   resetPassword,
   logout,
+  refreshAccessToken,
 } from './auth.controller';
 
 import checkLogin from '../../shared/middlewares/auth.middleware';
@@ -21,5 +22,6 @@ router.route('/reset-password').post(resetPassword);
 
 // protected routes
 router.route('/logout').post(checkLogin, logout);
+router.route('refresh-token').post(refreshAccessToken);
 
 export default router;

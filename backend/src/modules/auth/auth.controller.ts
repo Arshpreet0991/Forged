@@ -94,6 +94,24 @@ const logout = asyncHandler(async (req, res) => {
   sendResponse(res, 200, 'Logged out successfully');
 });
 
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  // get the refresh token from cookie
+  const incomingRefreshToken =
+    req.cookies.refreshToken || req.body?.refreshToken;
+  if (!incomingRefreshToken) throw new ApiError(401, 'Unauthorized Request');
+
+  const { newAccessToken, newRefreshToken, user } =
+    await authService.refreshAccessToken(incomingRefreshToken);
+
+  res.cookie('refreshToken', newRefreshToken, options);
+  sendResponse(res, 200, 'new access token and refresh token issued', {
+    accessToken: newAccessToken,
+    user: {
+      id: user.id,
+    },
+  });
+});
+
 export {
   registerUser,
   loginUser,
@@ -101,4 +119,5 @@ export {
   forgotPassword,
   resetPassword,
   logout,
+  refreshAccessToken,
 };

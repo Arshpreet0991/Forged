@@ -13,6 +13,9 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from '../../shared/utils/generateJWT';
+import jwt from 'jsonwebtoken';
+import { env } from '../../config/env';
+import TokenPayload from '../../shared/types/jwtToken.types';
 
 const registerUser = async (data: RegisterRequest) => {
   const { email, password, username, timezone } = data; // Destructure the registration data
@@ -218,6 +221,28 @@ const logoutUser = async (userId: string) => {
   await authRepository.deleteRefreshToken(userId);
 };
 
+const refreshAccessToken = async (refreshToken: string) => {
+  try {
+    const decodedToken = jwt.verify(
+      refreshToken,
+      env.JWT_REFRESH_TOKEN_SECRET,
+    ) as TokenPayload;
+
+    const user = await authRepository.findUserById(decodedToken?.userId);
+    if (!user) throw new ApiError(401, 'invalid refresh token');
+
+    if (refreshToken !== user.refreshToken)
+      throw new ApiError(401, 'Refresh token is expired or used');
+
+    const newAccessToken = generateAccessToken(user.id);
+    const newRefreshToken = generateRefreshToken(user.id);
+    await authRepository.saveRefreshToken(user.id, newRefreshToken);
+    return { newAccessToken, newRefreshToken, user };
+  } catch (error) {
+    throw new ApiError(401, 'Invalid or expired token');
+  }
+};
+
 export {
   registerUser,
   loginUser,
@@ -225,4 +250,5 @@ export {
   forgotPassword,
   resetPassword,
   logoutUser,
+  refreshAccessToken,
 };

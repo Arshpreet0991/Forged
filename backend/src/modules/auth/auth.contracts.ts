@@ -61,6 +61,12 @@ interface ResetPasswordResponse {
   message: string;
 }
 
+interface NewTokensResponse {
+  accessToken: string;
+  user: {
+    id: string;
+  };
+}
 export {
   RegisterRequest,
   LoginRequest,
@@ -72,4 +78,5 @@ export {
   VerifyEmailResponse,
   ForgotPasswordResponse,
   ResetPasswordResponse,
+  NewTokensResponse,
 };

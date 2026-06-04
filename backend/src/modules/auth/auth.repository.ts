@@ -84,6 +84,11 @@ const updateUserPassword = async (userId: string, newPassword: string) => {
   return user;
 };
 
+const findUserById = async (userId: string) => {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  return user;
+};
+
 export {
   createUser,
   findUserByEmail,
@@ -94,4 +99,5 @@ export {
   saveRefreshToken,
   deleteRefreshToken,
   updateUserPassword,
+  findUserById,
 };
