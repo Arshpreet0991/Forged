@@ -9,12 +9,16 @@ export const checkLogin = asyncHandler(async (req, res, next) => {
 
   if (!token) throw new ApiError(401, 'Unauthorized Request');
 
-  const decodedToken = jwt.verify(
-    token,
-    env.JWT_ACCESS_TOKEN_SECRET,
-  ) as TokenPayload;
+  try {
+    const decodedToken = jwt.verify(
+      token,
+      env.JWT_ACCESS_TOKEN_SECRET,
+    ) as TokenPayload;
+    req.userId = decodedToken.userId;
+  } catch {
+    throw new ApiError(401, 'Invalid or expired token');
+  }
 
-  req.userId = decodedToken?.userId;
   next();
 });
 

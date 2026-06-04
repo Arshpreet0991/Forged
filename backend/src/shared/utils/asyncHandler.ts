@@ -19,7 +19,12 @@ const asyncHandler = (fn: RequestHandler) => {
             error instanceof Error ? error.message : 'Internal Server Error',
         });
       }
-      logger.error('Error occurred in async handler', { error });
+      logger.error('Error occurred in async handler', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        path: req.path,
+        method: req.method,
+      });
     }
   };
 };

@@ -5,8 +5,9 @@ import {
   verifyUser,
   forgotPassword,
   resetPassword,
+  logout,
 } from './auth.controller';
-import { logoutUser } from './auth.service';
+
 import checkLogin from '../../shared/middlewares/auth.middleware';
 
 const router = Router();
@@ -19,6 +20,6 @@ router.route('/reset-password-request').post(forgotPassword);
 router.route('/reset-password').post(resetPassword);
 
 // protected routes
-router.route('/logout').post(checkLogin, logoutUser);
+router.route('/logout').post(checkLogin, logout);
 
 export default router;

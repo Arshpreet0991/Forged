@@ -94,5 +94,4 @@ export {
   saveRefreshToken,
   deleteRefreshToken,
   updateUserPassword,
-  findUserById,
 };

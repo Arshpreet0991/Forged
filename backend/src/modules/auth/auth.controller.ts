@@ -10,11 +10,13 @@ import * as authService from './auth.service';
 import sendResponse from '../../shared/utils/apiResponse.utils';
 import ApiError from '../../shared/errors/ApiError';
 import { env } from '../../config/env';
+import { CookieOptions } from 'express';
 
-const options = {
+const options: CookieOptions = {
   httpOnly: true,
-  secure: true,
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+  secure: env.NODE_ENV === 'production',
+  sameSite: 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -88,7 +90,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const userId = req.userId; // will come from auth middleware
   await authService.logoutUser(userId!);
-  res.clearCookie('accessToken', options);
+  res.clearCookie('refreshToken', options);
   sendResponse(res, 200, 'Logged out successfully');
 });
 
